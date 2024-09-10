@@ -1,49 +1,39 @@
-﻿// 14.10.1 (HW-04).cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+﻿/ 14.10.1 (HW - 04).cpp : Этот файл содержит функцию "main".Здесь начинается и заканчивается выполнение программы.
 //
 
 #include <iostream>
- 
+
 #include "Trie.h"
- 
+
 int main()
 {
     setlocale(LC_ALL, "");
     Trie tr;
-    tr.insert(tr.getRoot(), "abcd");
-    tr.insert(tr.getRoot(), "ablum");
-    tr.insert(tr.getRoot(), "arbor");
-
+    //формируем дерево
+    tr.insert(tr.getRoot(), "abrek");
+    tr.insert(tr.getRoot(), "absent");
+    tr.insert(tr.getRoot(), "akter");
+    tr.insert(tr.getRoot(), "akula");
+    tr.insert(tr.getRoot(), "balkon");
+    tr.insert(tr.getRoot(), "bidon");
 
     char letter;
-    string key  = "";
-     do
+    string key = "";
+    do
     {
-        cout << "Введите символ:"<< endl;
+        cout << "Введите символ:" << endl;
         cin >> letter;
         if (letter == 'q') break;
+        //последовательно вводим буквы ключа
         key += string{ letter };
-        cout << key << endl << "___________________"<< endl;
+        cout << key << endl << "___________________" << endl;
+        // для введенного ключа ищем подсказки
+        tr.getPrompts(tr.getRoot(), key);
+        for (int i = 0; i < MAX_PROMPT_LIST_SIZE; i++)   //   выдаем список найденных подсказок
+            cout << tr.prompts[i] << " " << endl;
+        // чистим список подсказок для следующего цикла
+        tr.deletePrompts();
+    } while (letter != 'q');
 
-        tr.getPrompts(tr.getRoot(), key, tr.prompts );
-        for (int i = 0; i < MAX_PROMPT_LIST_SIZE; i++)
-            cout << tr.prompts[i] <<" " <<endl; 
-        tr.deletePrompts(tr.prompts);
-     } while (letter != 'q');
-
-
-     
-   /* string key = "aplum";
-    cout << "Ключ " << key;
-   if( tr.search(tr.getRoot(), key ))
-       cout << " найден." << endl;
-   else cout << " не найден." << endl;
-
-   string res = tr.getWord(tr.getRoot());
-   cout << res << endl;
-  //  tr.setRoot(tr.remove(tr.getRoot(), res, 5));
-    
-       res  = tr.getWord(tr.getRoot());
-   cout << res  << endl;
-  */   
 }
 
